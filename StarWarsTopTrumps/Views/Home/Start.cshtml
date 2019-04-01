@@ -1,0 +1,120 @@
+﻿@model StarWarsTopTrumps.Models.GameData
+
+@{
+    ViewData["Title"] = "Start Game";
+}
+
+<div class="mt-5">
+    @if (Model.CardsDealt)
+    {
+        <div class="row">
+            <div class="col-sm">
+                <div class="card" style="width: 100%;">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            @Model.Player1.Name
+                            @if (Model.Player1.ToStart)
+                            {
+                                <span class="float-right badge badge-warning">@Model.Player1.Name.ToUpper() STARTS GAME</span>
+                            }
+                        </h5>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Starship Name: <label class="float-right font-weight-bold">@Model.Player1.StarShipCardHand[0].Name</label></li>
+                            <li class="list-group-item">
+                                Cost of credits:<br /><strong>@Model.Player1.StarShipCardHand[0].CostOfCredits</strong>
+                                @if (Model.HandResult.Equals(StarWarsTopTrumps.Engine.HandResult.None))
+                                {
+                                    @Html.ActionLink("Play", "compareattributes", "home", new { attr = "cost" }, new { @class = "float-right btn btn-outline-primary btn-sm" })
+                                }
+                            </li>
+                            <li class="list-group-item">
+                                Hyperdrive Rating:<br /><strong>@Model.Player1.StarShipCardHand[0].HyperDriveRating</strong>
+                                @if (Model.HandResult.Equals(StarWarsTopTrumps.Engine.HandResult.None))
+                                {
+                                    @Html.ActionLink("Play", "compareattributes", "home", new { attr = "hyperdrive" }, new { @class = "float-right btn btn-outline-primary btn-sm" })
+                                }
+                            </li>
+                            <li class="list-group-item">
+                                Top speed:<br /><strong>@Model.Player1.StarShipCardHand[0].TopSpeed</strong>
+                                @if (Model.HandResult.Equals(StarWarsTopTrumps.Engine.HandResult.None))
+                                {
+                                    @Html.ActionLink("Play", "compareattributes", "home", new { attr = "speed" }, new { @class = "float-right btn btn-outline-primary btn-sm" })
+                                }
+                            </li>
+                            <li class="list-group-item">
+                                No. of films:<br /><strong>@Model.Player1.StarShipCardHand[0].NumberOfFilms</strong>
+                                @if (Model.HandResult.Equals(StarWarsTopTrumps.Engine.HandResult.None))
+                                {
+                                    @Html.ActionLink("Play", "compareattributes", "home", new { attr = "films" }, new { @class = "float-right btn btn-outline-primary btn-sm" })
+                                }
+                            </li>
+                            <li class="list-group-item">
+                                Crew Required:<br /><strong>@Model.Player1.StarShipCardHand[0].CrewRequired</strong>
+                                @if (Model.HandResult.Equals(StarWarsTopTrumps.Engine.HandResult.None))
+                                {
+                                    @Html.ActionLink("Play", "compareattributes", "home", new { attr = "crew" }, new { @class = "float-right btn btn-outline-primary btn-sm" })
+                                }
+                            </li>
+                            <li class="list-group-item">
+                                <div>Cards Left <span class="badge badge-danger">@Model.Player1.StarShipCardHand.Count</span></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm">
+
+                @if (Model.HandResult.Equals(StarWarsTopTrumps.Engine.HandResult.Win))
+                {
+                    <div class="alert alert-success mb-2" role="alert">
+                        <h4 class="alert-heading">Player Wins</h4>
+                        <p>@Model.HandMessage</p>
+                    </div>
+                }
+
+                @if (Model.HandResult.Equals(StarWarsTopTrumps.Engine.HandResult.Lose))
+                {
+                    <div class="alert alert-danger mb-2" role="alert">
+                        <h4 class="alert-heading">Computer Wins</h4>
+                        <p>@Model.HandMessage</p>
+                    </div>
+                }
+
+                @if (Model.HandResult.Equals(StarWarsTopTrumps.Engine.HandResult.Draw))
+                {
+                    <div class="alert alert-warning mb-2" role="alert">
+                        <h4 class="alert-heading">It's a draw</h4>
+                    </div>
+                }
+
+                <!--
+
+                <div class="card" style="width: 100%;">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            @Model.Player2.Name
+                            @if (Model.Player2.ToStart)
+                            {
+                                <span class="float-right badge badge-warning">@Model.Player2.Name.ToUpper() STARTS GAME</span>
+                            }
+                        </h5>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Starship Name: <label class="float-right font-weight-bold">@Model.Player2.StarShipCardHand[0].Name</label></li>
+                            <li class="list-group-item">Cost of credits: <label class="float-right font-weight-bold">@Model.Player2.StarShipCardHand[0].CostOfCredits</label></li>
+                            <li class="list-group-item">Hyperdrive Rating: <label class="float-right font-weight-bold">@Model.Player2.StarShipCardHand[0].HyperDriveRating</label></li>
+                            <li class="list-group-item">Top speed: <label class="float-right font-weight-bold">@Model.Player2.StarShipCardHand[0].TopSpeed</label></li>
+                            <li class="list-group-item">No. of films: <label class="float-right font-weight-bold">@Model.Player2.StarShipCardHand[0].NumberOfFilms</label></li>
+                            <li class="list-group-item">Crew Required: <label class="float-right font-weight-bold">@Model.Player2.StarShipCardHand[0].CrewRequired</label></li>
+                            <li class="list-group-item">
+                                <div>Cards Left <span class="badge badge-danger">@Model.Player2.StarShipCardHand.Count</span></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                -->
+
+            </div>
+        </div>
+    }
+</div>
