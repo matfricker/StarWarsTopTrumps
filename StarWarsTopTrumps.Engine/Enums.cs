@@ -12,6 +12,12 @@ namespace StarWarsTopTrumps.Engine
         Draw
     }
 
+    public enum HandState
+    {
+        Visible,
+        Hidden
+    }
+
     public enum StarshipAttributes
     {
         CostOfCredits,
