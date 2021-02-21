@@ -20,7 +20,7 @@ namespace SharpTrooper.Core
             POST
         }
 
-        private string apiUrl = "http://swapi.co/api";
+        private string apiUrl = "https://swapi.dev/api";
         private string _proxyName = null;
 
         public SharpTrooperCore()
