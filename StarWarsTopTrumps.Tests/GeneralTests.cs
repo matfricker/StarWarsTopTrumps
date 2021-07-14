@@ -11,7 +11,7 @@ namespace StarWarsTopTrumps.Tests
         [TestMethod]
         public void ChoosePlayerToStart()
         {
-            Player player1 = new Player();
+            Player player1 = new ();
             player1.ChoosePlayerToStart(player1);
 
             Assert.IsTrue(player1.ToStart);
@@ -20,12 +20,8 @@ namespace StarWarsTopTrumps.Tests
         [TestMethod]
         public void ChooseComputerToStart()
         {
-            Player player1 = new Player();
-
-            Player player2 = new Player
-            {
-                IsComputer = true
-            };
+            Player player1 = new ();
+            var player2 = new Player { IsComputer = true };
 
             player1.ChoosePlayerToStart(player2);
 
@@ -35,10 +31,10 @@ namespace StarWarsTopTrumps.Tests
         [TestMethod]
         public void CheckAllCardsReturned()
         {
-            StarShipCard starShipCards = new StarShipCard();
-            List<StarShipCard> cards = starShipCards.PopulateAllCards();
+            StarShipCard starShipCards = new ();
+            var cards = starShipCards.PopulateAllCards();
 
-            SharpTrooperCore core = new SharpTrooperCore();
+            SharpTrooperCore core = new ();
 
             Assert.IsTrue(cards.Count == core.GetAllStarships().count);
         }
@@ -47,19 +43,16 @@ namespace StarWarsTopTrumps.Tests
         [Ignore]
         public void AllCardsHaveBeenDealt()
         {
-            Player player1 = new Player();
-            Player player2 = new Player()
-            {
-                IsComputer = true
-            };
+            Player player1 = new ();
+            Player player2 = new () { IsComputer = true };
 
-            StarShipCard starshipCards = new StarShipCard();
-            List<StarShipCard> cards = starshipCards.PopulateAllCards();
+            StarShipCard starshipCards = new ();
+            var cards = starshipCards.PopulateAllCards();
 
-            StarShipCard cardsToDeal = new StarShipCard();
+            StarShipCard cardsToDeal = new ();
             cardsToDeal.Deal(player1, player2);
 
-            int totalCardsDealt = player1.StarShipCardHand.Count + player2.StarShipCardHand.Count;
+            var totalCardsDealt = player1.StarShipCardHand.Count + player2.StarShipCardHand.Count;
 
             Assert.IsTrue(cards.Count == totalCardsDealt);
         }
