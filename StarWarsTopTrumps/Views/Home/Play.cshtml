@@ -24,6 +24,7 @@
 
                             <div class="float-right">
                                 <span class="small">Cards left:</span> <span class="badge badge-danger">@Model.Player1.StarShipCardHand.Count</span>
+                                <span class="small">Score:</span> <span class="badge badge-danger">@Model.Player1.Score</span>
                             </div>
                         </div>
                         <ul class="list-group list-group-flush">
@@ -80,43 +81,42 @@
                 <div class="card" style="width: 100%;">
                     <div class="card-body">
                         <div class="card-title">
-                            @if (Model.Player2.ToStart)
-                            {
-                                <span class="badge badge-warning">@Model.Player2.Name.ToUpper() TO START</span>
-                            }
-                            else
-                            {
-                                <span class="badge badge-warning">@Model.Player2.Name.ToUpper()</span>
-                            }
-                            
+                            <span class="badge badge-warning">@Model.Player2.Name.ToUpper()</span>
                             <div class="float-right">
-                                <span class="small">Cards left:</span> <span class="badge badge-danger">@Model.Player2.StarShipCardHand.Count</span>
+                                <span class="small">Cards left:</span> <span class="badge badge-danger">@Model.Player2.Score</span>
+                                <span class="small">Score:</span> <span class="badge badge-danger">@Model.Player2.Score</span>
                             </div>
                         </div>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
                                 <label>Starship Name:</label>
-                                <strong>@Model.Player2.StarShipCardHand[0].Name</strong>
+                                <strong>?</strong>
+                                @*<strong>@Model.Player2.StarShipCardHand[0].Name</strong>*@
                             </li>
                             <li class="list-group-item">
                                 <label>Credits Cost:</label>
-                                <strong>@Model.Player2.StarShipCardHand[0].CostOfCredits</strong>
+                                <strong>?</strong>
+                                @*<strong>@Model.Player2.StarShipCardHand[0].CostOfCredits</strong>*@
                             </li>
                             <li class="list-group-item">
                                 <label>Hyper-Drive Rating:</label>
-                                <strong>@Model.Player2.StarShipCardHand[0].HyperDriveRating</strong>
+                                <strong>?</strong>
+                                @*<strong>@Model.Player2.StarShipCardHand[0].HyperDriveRating</strong>*@
                             </li>
                             <li class="list-group-item">
                                 <label>Top Speed:</label>
-                                <strong>@Model.Player2.StarShipCardHand[0].TopSpeed</strong>
+                                <strong>?</strong>
+                                @*<strong>@Model.Player2.StarShipCardHand[0].TopSpeed</strong>*@
                             </li>
                             <li class="list-group-item">
                                 <label>No. Of Films:</label>
-                                <strong>@Model.Player2.StarShipCardHand[0].NumberOfFilms</strong>
+                                <strong>?</strong>
+                                @*<strong>@Model.Player2.StarShipCardHand[0].NumberOfFilms</strong>*@
                             </li>
                             <li class="list-group-item">
                                 <label>Crew Required:</label>
-                                <strong>@Model.Player2.StarShipCardHand[0].CrewRequired</strong>
+                                <strong>?</strong>
+                                @*<strong>@Model.Player2.StarShipCardHand[0].CrewRequired</strong>*@
                             </li>
                         </ul>
                     </div>

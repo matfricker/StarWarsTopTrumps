@@ -18,7 +18,7 @@ namespace StarWarsTopTrumps.Controllers
 
             var player2 = new Player
             {
-                Name = "Computer",
+                Name = "Player 2",
                 IsComputer = true
             };
 
@@ -64,7 +64,14 @@ namespace StarWarsTopTrumps.Controllers
                     }
                     else
                     {
-                        return RedirectToAction("EndGame");
+                        var draw = gameData.Player1.Score == gameData.Player2.Score;
+                        var winner = false;
+                        if (!draw)
+                        {
+                            winner = gameData.Player1.Score > gameData.Player2.Score;
+                        }
+
+                        return RedirectToAction("EndGame", new { winner, draw });
                     }
                 }
                 else
@@ -84,9 +91,11 @@ namespace StarWarsTopTrumps.Controllers
                         break;
                     case "win":
                         gameData.HandResult = HandResult.Win;
+                        gameData.Player1.Score += 1;
                         break;
                     case "lose":
                         gameData.HandResult = HandResult.Lose;
+                        gameData.Player2.Score += 1;
                         break;
                 }
             }
@@ -101,8 +110,13 @@ namespace StarWarsTopTrumps.Controllers
             return View(gameData);
         }
 
-        public IActionResult EndGame()
+        public IActionResult EndGame(bool winner, bool draw)
         {
+            if (draw)
+                ViewBag.Message = "It's a draw.";
+            else
+                ViewBag.Message = winner ? "Player 1 Wins" : "Player 2 Wins";
+            
             return View();
         }
 

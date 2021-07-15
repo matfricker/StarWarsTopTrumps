@@ -8,6 +8,8 @@ namespace StarWarsTopTrumps.Engine
 
         public string Name { get; set; }
 
+        public int Score { get; set; }
+
         public bool IsComputer { get; set; }
 
         public bool ToStart { get; set; }
