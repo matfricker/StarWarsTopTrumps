@@ -3,6 +3,7 @@ using SharpTrooper.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace StarWarsTopTrumps.Engine
 {
@@ -82,19 +83,19 @@ namespace StarWarsTopTrumps.Engine
             return cards.OrderBy(item => random.Next()).ToList();
         }
 
-        public HandResult CompareAttributes(string playerValue, string computerValue, StarShipAttributes attribute)
+        public HandResult CompareAttributes(string player1Value, string player2Value, StarShipAttributes attribute)
         {
-            if (playerValue == "unknown" && computerValue != "unknown")
+            if (player1Value == "unknown" && player2Value != "unknown")
             {
                 return HandResult.Lose;
             }
 
-            if (playerValue != "unknown" && computerValue == "unknown")
+            if (player1Value != "unknown" && player2Value == "unknown")
             {
                 return HandResult.Win;
             }
 
-            if (playerValue == "unknown" && computerValue == "unknown")
+            if (player1Value == "unknown" && player2Value == "unknown")
             {
                 return HandResult.Draw;
             }
@@ -106,18 +107,35 @@ namespace StarWarsTopTrumps.Engine
                 case StarShipAttributes.NumberOfFilms:
                 case StarShipAttributes.CrewRequired:
 
-                    if (Convert.ToInt32(playerValue) == Convert.ToInt32(computerValue))
+                    Regex rx = new (@"\d*\-");
+                    var player1Match = rx.Match(player1Value);
+                    var player2Match = rx.Match(player2Value);
+
+                    if (player1Match.Length > 0)
+                    {
+                        player1Value = player1Value.Replace(player1Match.Value, "");
+                    }
+
+                    if (player2Match.Length > 0)
+                    {
+                        player2Value = player2Value.Replace(player2Match.Value, "");
+                    }
+
+                    player1Value = player1Value.Replace(",", "");
+                    player2Value = player2Value.Replace(",", "");
+
+                    if (Convert.ToInt64(player1Value) == Convert.ToInt64(player2Value))
                         return HandResult.Draw;
-                    else if (Convert.ToInt32(playerValue) > Convert.ToInt32(computerValue))
+                    else if (Convert.ToInt64(player1Value) > Convert.ToInt64(player2Value))
                         return HandResult.Win;
                     else
                         return HandResult.Lose;
 
                 case StarShipAttributes.HyperDriveRating:
 
-                    if (Convert.ToDecimal(playerValue) == Convert.ToDecimal(computerValue))
+                    if (Convert.ToDecimal(player1Value) == Convert.ToDecimal(player2Value))
                         return HandResult.Draw;
-                    else if (Convert.ToDecimal(playerValue) > Convert.ToDecimal(computerValue))
+                    else if (Convert.ToDecimal(player1Value) > Convert.ToDecimal(player2Value))
                         return HandResult.Win;
                     else
                         return HandResult.Lose;

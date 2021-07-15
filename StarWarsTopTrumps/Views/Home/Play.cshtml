@@ -171,10 +171,9 @@
                         }
 
                     </div>
-                    @*<div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>*@
+                    <div class="modal-footer">
+                        @Html.ActionLink("Next Card", "Play", "Home", new { player = 1, result = string.Empty, message = string.Empty, nextCard = true }, new { @class = "btn btn-primary" })
+                    </div>
                 </div>
             </div>
         </div>

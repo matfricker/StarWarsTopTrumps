@@ -33,9 +33,15 @@ namespace StarWarsTopTrumps.Controllers
             return View(gameData);
         }
 
-        public IActionResult Play(int player, string result, string message)
+        public IActionResult Play(int player, string result, string message, bool nextCard = false)
         {
             var gameData = JsonConvert.DeserializeObject<GameData>(TempData["GameData"].ToString());
+
+            if (nextCard)
+            {
+                gameData.HandMessage = string.Empty;
+                gameData.HandResult = HandResult.None;
+            }
 
             if (player != 0)
             {
@@ -49,10 +55,24 @@ namespace StarWarsTopTrumps.Controllers
                         break;
                 }
 
-                StarShipCard cardsToDeal = new ();
-                cardsToDeal.Deal(gameData.Player1, gameData.Player2);
-                gameData.CardsDealt = true;
-
+                if (nextCard)
+                {
+                    if (gameData.Player1.StarShipCardHand.Count > 1 && gameData.Player2.StarShipCardHand.Count > 1)
+                    {
+                        gameData.Player1.StarShipCardHand.RemoveAt(0);
+                        gameData.Player2.StarShipCardHand.RemoveAt(0);
+                    }
+                    else
+                    {
+                        return RedirectToAction("EndGame");
+                    }
+                }
+                else
+                {
+                    StarShipCard cardsToDeal = new();
+                    cardsToDeal.Deal(gameData.Player1, gameData.Player2);
+                    gameData.CardsDealt = true;
+                }
             }
 
             if (result != null)
@@ -79,6 +99,11 @@ namespace StarWarsTopTrumps.Controllers
             TempData["GameData"] = JsonConvert.SerializeObject(gameData);
 
             return View(gameData);
+        }
+
+        public IActionResult EndGame()
+        {
+            return View();
         }
 
         public IActionResult CompareAttributes(StarShipAttributes attribute)

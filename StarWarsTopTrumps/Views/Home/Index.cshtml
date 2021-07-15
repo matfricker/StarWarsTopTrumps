@@ -6,6 +6,6 @@
 
 <div class="alert alert-warning mt-5">
     <p>Choose a player to start the game:</p>
-    @Html.ActionLink(@Model.Player1.Name, "play", "home", new { player = 1 }, new { @class = "btn btn-warning" })
-    @Html.ActionLink(@Model.Player2.Name, "play", "home", new { player = 2 }, new { @class = "btn btn-warning" })
+    @Html.ActionLink(@Model.Player1.Name, "Play", "Home", new { player = 1 }, new { @class = "btn btn-warning" })
+    @*@Html.ActionLink(@Model.Player2.Name, "Play", "Home", new { player = 2 }, new { @class = "btn btn-warning" })*@
 </div>
