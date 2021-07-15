@@ -18,7 +18,7 @@ namespace StarWarsTopTrumps.Engine
         Hidden
     }
 
-    public enum StarshipAttributes
+    public enum StarShipAttributes
     {
         CostOfCredits,
         HyperDriveRating,

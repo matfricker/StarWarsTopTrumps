@@ -11,18 +11,18 @@ namespace StarWarsTopTrumps.Controllers
     {
         public IActionResult Index()
         {
-            Player player1 = new Player()
+            Player player1 = new ()
             {
                 Name = "Player 1"
             };
 
-            Player player2 = new Player
+            var player2 = new Player
             {
                 Name = "Computer",
                 IsComputer = true
             };
 
-            GameData gameData = new GameData
+            var gameData = new GameData
             {
                 Player1 = player1,
                 Player2 = player2
@@ -33,23 +33,23 @@ namespace StarWarsTopTrumps.Controllers
             return View(gameData);
         }
 
-        public IActionResult Start(int player, string result, string message)
+        public IActionResult Play(int player, string result, string message)
         {
-            GameData gameData = JsonConvert.DeserializeObject<GameData>(TempData["GameData"].ToString());
+            var gameData = JsonConvert.DeserializeObject<GameData>(TempData["GameData"].ToString());
 
             if (player != 0)
             {
-                if (player == 1)
+                switch (player)
                 {
-                    gameData.Player1.ToStart = true;
+                    case 1:
+                        gameData.Player1.ToStart = true;
+                        break;
+                    case 2:
+                        gameData.Player2.ToStart = true;
+                        break;
                 }
 
-                if (player == 2)
-                {
-                    gameData.Player2.ToStart = true;
-                }
-
-                StarShipCard cardsToDeal = new StarShipCard();
+                StarShipCard cardsToDeal = new ();
                 cardsToDeal.Deal(gameData.Player1, gameData.Player2);
                 gameData.CardsDealt = true;
 
@@ -81,97 +81,46 @@ namespace StarWarsTopTrumps.Controllers
             return View(gameData);
         }
 
-        public IActionResult CompareAttributes(string attr)
+        public IActionResult CompareAttributes(StarShipAttributes attribute)
         {
-            GameData gameData = JsonConvert.DeserializeObject<GameData>(TempData["GameData"].ToString());
-
-            string message = string.Empty;
+            var gameData = JsonConvert.DeserializeObject<GameData>(TempData["GameData"].ToString());
+            string player1Value;
+            string player2Value;
+            string message;
             HandResult result;
+            StarShipCard cards = new ();
 
-            StarShipCard cards = new StarShipCard();
-
-            switch (attr)
+            switch (attribute)
             {
-                case "cost":
-                    result = cards.CompareAttributes(gameData.Player1.StarShipCardHand[0].CostOfCredits,
-                                                     gameData.Player2.StarShipCardHand[0].CostOfCredits,
-                                                     StarshipAttributes.CostOfCredits);
-
-                    if (result.Equals(HandResult.Win))
-                    {
-                        message = string.Format("Played cost of credits, {0} beats {1}", gameData.Player1.StarShipCardHand[0].CostOfCredits, gameData.Player2.StarShipCardHand[0].CostOfCredits);
-                    }
-
-                    if (result.Equals(HandResult.Lose))
-                    {
-                        message = string.Format("Played cost of credits, {0} beats {1}", gameData.Player2.StarShipCardHand[0].CostOfCredits, gameData.Player1.StarShipCardHand[0].CostOfCredits);
-                    }
-
-                        break;
-                case "hyperdrive":
-                    result = cards.CompareAttributes(gameData.Player1.StarShipCardHand[0].HyperDriveRating,
-                                                     gameData.Player2.StarShipCardHand[0].HyperDriveRating,
-                                                     StarshipAttributes.HyperDriveRating);
-
-                    if (result.Equals(HandResult.Win))
-                    {
-                        message = string.Format("Played hyperdrive rating, {0} beats {1}", gameData.Player1.StarShipCardHand[0].HyperDriveRating, gameData.Player2.StarShipCardHand[0].HyperDriveRating);
-                    }
-
-                    if (result.Equals(HandResult.Lose))
-                    {
-                        message = string.Format("Played hyperdrive rating, {0} beats {1}", gameData.Player2.StarShipCardHand[0].HyperDriveRating, gameData.Player1.StarShipCardHand[0].HyperDriveRating);
-                    }
-
+                case StarShipAttributes.CostOfCredits:
+                    player1Value = gameData.Player1.StarShipCardHand[0].CostOfCredits;
+                    player2Value = gameData.Player2.StarShipCardHand[0].CostOfCredits;
+                    result = cards.CompareAttributes(player1Value, player2Value, attribute);
+                    message = GetResultMessage(result, "Played cost of credits, {0} beats {1}", player1Value, player2Value);
                     break;
-                case "speed":
-                    result = cards.CompareAttributes(gameData.Player1.StarShipCardHand[0].TopSpeed,
-                                                     gameData.Player2.StarShipCardHand[0].TopSpeed,
-                                                     StarshipAttributes.TopSpeed);
-
-                    if (result.Equals(HandResult.Win))
-                    {
-                        message = string.Format("Played top speed, {0} beats {1}", gameData.Player1.StarShipCardHand[0].TopSpeed, gameData.Player2.StarShipCardHand[0].TopSpeed);
-                    }
-
-                    if (result.Equals(HandResult.Lose))
-                    {
-                        message = string.Format("Played top speed, {0} beats {1}", gameData.Player2.StarShipCardHand[0].TopSpeed, gameData.Player1.StarShipCardHand[0].TopSpeed);
-                    }
-
+                case StarShipAttributes.HyperDriveRating:
+                    player1Value = gameData.Player1.StarShipCardHand[0].HyperDriveRating;
+                    player2Value = gameData.Player2.StarShipCardHand[0].HyperDriveRating;
+                    result = cards.CompareAttributes(player1Value, player2Value, attribute);
+                    message = GetResultMessage(result, "Played hyper-drive rating, {0} beats {1}", player1Value, player2Value);
                     break;
-                case "films":
-                    result = cards.CompareAttributes(gameData.Player1.StarShipCardHand[0].NumberOfFilms,
-                                                     gameData.Player2.StarShipCardHand[0].NumberOfFilms,
-                                                     StarshipAttributes.NumberOfFilms);
-
-                    if (result.Equals(HandResult.Win))
-                    {
-                        message = string.Format("Played number of films, {0} beats {1}", gameData.Player1.StarShipCardHand[0].NumberOfFilms, gameData.Player2.StarShipCardHand[0].NumberOfFilms);
-                    }
-
-                    if (result.Equals(HandResult.Lose))
-                    {
-                        message = string.Format("Played number of films, {0} beats {1}", gameData.Player2.StarShipCardHand[0].NumberOfFilms, gameData.Player1.StarShipCardHand[0].NumberOfFilms);
-                    }
-
+                case StarShipAttributes.TopSpeed:
+                    player1Value = gameData.Player1.StarShipCardHand[0].TopSpeed;
+                    player2Value = gameData.Player2.StarShipCardHand[0].TopSpeed;
+                    result = cards.CompareAttributes(player1Value, player2Value, attribute);
+                    message = GetResultMessage(result, "Played top speed, {0} beats {1}", player1Value, player2Value);
                     break;
-                case "crew":
-
-                    result = cards.CompareAttributes(gameData.Player1.StarShipCardHand[0].CrewRequired,
-                                                     gameData.Player2.StarShipCardHand[0].CrewRequired,
-                                                     StarshipAttributes.CrewRequired);
-
-                    if (result.Equals(HandResult.Win))
-                    {
-                        message = string.Format("Played crew required, {0} beats {1}", gameData.Player1.StarShipCardHand[0].CrewRequired, gameData.Player2.StarShipCardHand[0].CrewRequired);
-                    }
-
-                    if (result.Equals(HandResult.Lose))
-                    {
-                        message = string.Format("Played crew required, {0} beats {1}", gameData.Player2.StarShipCardHand[0].CrewRequired, gameData.Player1.StarShipCardHand[0].CrewRequired);
-                    }
-
+                case StarShipAttributes.NumberOfFilms:
+                    player1Value = gameData.Player1.StarShipCardHand[0].NumberOfFilms;
+                    player2Value = gameData.Player2.StarShipCardHand[0].NumberOfFilms;
+                    result = cards.CompareAttributes(player1Value, player2Value, attribute);
+                    message = GetResultMessage(result, "Played number of films, {0} beats {1}", player1Value, player2Value);
+                    break;
+                case StarShipAttributes.CrewRequired:
+                    player1Value = gameData.Player1.StarShipCardHand[0].CrewRequired;
+                    player2Value = gameData.Player2.StarShipCardHand[0].CrewRequired;
+                    result = cards.CompareAttributes(player1Value, player2Value, attribute);
+                    message = GetResultMessage(result, "Played crew required, {0} beats {1}", player1Value, player2Value);
                     break;
                 default:
                     throw new Exception("Invalid attribute");
@@ -179,7 +128,20 @@ namespace StarWarsTopTrumps.Controllers
 
             TempData["GameData"] = JsonConvert.SerializeObject(gameData);
 
-            return RedirectToAction("start", new { result = result.ToString().ToLower(), message });
+            return RedirectToAction("play", new { result, message });
+        }
+
+        private static string GetResultMessage(HandResult result, string message, string player1Value, string player2Value)
+        {
+            switch (result)
+            {
+                case HandResult.Win:
+                    return string.Format(message, player1Value, player2Value);
+                case HandResult.Lose:
+                    return string.Format(message, player2Value, player1Value);
+                default:
+                    return string.Empty;
+            }
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

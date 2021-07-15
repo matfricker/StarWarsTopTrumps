@@ -24,25 +24,25 @@ namespace StarWarsTopTrumps.Engine
 
         public override List<StarShipCard> PopulateAllCards()
         {
-            List<StarShipCard> starShipCards = new List<StarShipCard>();
+            List<StarShipCard> starShipCards = new ();
 
-            SharpTrooperCore core = new SharpTrooperCore();
+            SharpTrooperCore core = new ();
 
-            decimal totalStarships = Convert.ToDecimal(core.GetAllStarships().count);
-            int pages = Convert.ToInt32(Math.Ceiling(totalStarships / 10m));
+            var totalStarShips = Convert.ToDecimal(core.GetAllStarships().count);
+            var pages = Convert.ToInt32(Math.Ceiling(totalStarShips / 10m));
 
-            for (int i = 1; i <= pages; i++)
+            for (var i = 1; i <= pages; i++)
             {
-                foreach (Starship starship in core.GetAllStarships(i.ToString()).results)
+                foreach (var starShip in core.GetAllStarships(i.ToString()).results)
                 {
-                    StarShipCard starShipCard = new StarShipCard
+                    var starShipCard = new StarShipCard
                     {
-                        Name = starship.name,
-                        CostOfCredits = starship.cost_in_credits,
-                        HyperDriveRating = starship.hyperdrive_rating,
-                        TopSpeed = starship.MGLT,
-                        NumberOfFilms = starship.films.Count.ToString(),
-                        CrewRequired = starship.crew
+                        Name = starShip.name,
+                        CostOfCredits = starShip.cost_in_credits,
+                        HyperDriveRating = starShip.hyperdrive_rating,
+                        TopSpeed = starShip.MGLT,
+                        NumberOfFilms = starShip.films.Count.ToString(),
+                        CrewRequired = starShip.crew
                     };
 
                     starShipCards.Add(starShipCard);
@@ -54,14 +54,14 @@ namespace StarWarsTopTrumps.Engine
 
         public override void Deal(Player player1, Player player2)
         {
-            bool skip = false;
-            List<StarShipCard> cards = PopulateAllCards();
-            List<StarShipCard> shuffledcards = ShuffleCards(cards);
+            var skip = false;
+            var cards = PopulateAllCards();
+            var shuffleCards = ShuffleCards(cards);
 
             player1.StarShipCardHand = new List<StarShipCard>();
             player2.StarShipCardHand = new List<StarShipCard>();
 
-            foreach (StarShipCard card in shuffledcards)
+            foreach (var card in shuffleCards)
             {
                 if (skip)
                 {
@@ -78,20 +78,20 @@ namespace StarWarsTopTrumps.Engine
 
         public override List<StarShipCard> ShuffleCards(List<StarShipCard> cards)
         {
-            Random random = new Random();
+            var random = new Random();
             return cards.OrderBy(item => random.Next()).ToList();
         }
 
-        public HandResult CompareAttributes(string playerValue, string computerValue, StarshipAttributes attribute)
+        public HandResult CompareAttributes(string playerValue, string computerValue, StarShipAttributes attribute)
         {
             if (playerValue == "unknown" && computerValue != "unknown")
             {
-                return HandResult.Win;
+                return HandResult.Lose;
             }
 
             if (playerValue != "unknown" && computerValue == "unknown")
             {
-                return HandResult.Lose;
+                return HandResult.Win;
             }
 
             if (playerValue == "unknown" && computerValue == "unknown")
@@ -101,10 +101,10 @@ namespace StarWarsTopTrumps.Engine
 
             switch (attribute)
             {
-                case StarshipAttributes.CostOfCredits:
-                case StarshipAttributes.TopSpeed:
-                case StarshipAttributes.NumberOfFilms:
-                case StarshipAttributes.CrewRequired:
+                case StarShipAttributes.CostOfCredits:
+                case StarShipAttributes.TopSpeed:
+                case StarShipAttributes.NumberOfFilms:
+                case StarShipAttributes.CrewRequired:
 
                     if (Convert.ToInt32(playerValue) == Convert.ToInt32(computerValue))
                         return HandResult.Draw;
@@ -113,7 +113,7 @@ namespace StarWarsTopTrumps.Engine
                     else
                         return HandResult.Lose;
 
-                case StarshipAttributes.HyperDriveRating:
+                case StarShipAttributes.HyperDriveRating:
 
                     if (Convert.ToDecimal(playerValue) == Convert.ToDecimal(computerValue))
                         return HandResult.Draw;
