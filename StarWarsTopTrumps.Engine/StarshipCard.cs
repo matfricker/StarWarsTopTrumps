@@ -15,7 +15,7 @@ namespace StarWarsTopTrumps.Engine
 
         public string CostOfCredits { get; set; }
 
-        public string HyperDriveRating { get; set; }
+        public string CargoCapacity { get; set; }
 
         public string TopSpeed { get; set; }
 
@@ -26,7 +26,6 @@ namespace StarWarsTopTrumps.Engine
         public override List<StarShipCard> PopulateAllCards()
         {
             List<StarShipCard> starShipCards = new ();
-
             SharpTrooperCore core = new ();
 
             var totalStarShips = Convert.ToDecimal(core.GetAllStarships().count);
@@ -34,16 +33,16 @@ namespace StarWarsTopTrumps.Engine
 
             for (var i = 1; i <= pages; i++)
             {
-                foreach (var starShip in core.GetAllStarships(i.ToString()).results)
+                foreach (var ship in core.GetAllStarships(i.ToString()).results)
                 {
                     var starShipCard = new StarShipCard
                     {
-                        Name = starShip.name,
-                        CostOfCredits = starShip.cost_in_credits,
-                        HyperDriveRating = starShip.hyperdrive_rating,
-                        TopSpeed = starShip.MGLT,
-                        NumberOfFilms = starShip.films.Count.ToString(),
-                        CrewRequired = starShip.crew
+                        Name = ship.name,
+                        CostOfCredits = ship.cost_in_credits,
+                        CargoCapacity = ship.cargo_capacity,
+                        TopSpeed = ship.max_atmosphering_speed,
+                        NumberOfFilms = ship.films.Count.ToString(),
+                        CrewRequired = ship.crew
                     };
 
                     starShipCards.Add(starShipCard);
@@ -85,20 +84,20 @@ namespace StarWarsTopTrumps.Engine
 
         public HandResult CompareAttributes(string player1Value, string player2Value, StarShipAttributes attribute)
         {
-            if (player1Value == "unknown" && player2Value != "unknown")
-            {
-                return HandResult.Lose;
-            }
+            //if (player1Value == "unknown" && player2Value != "unknown")
+            //{
+            //    return HandResult.Lose;
+            //}
 
-            if (player1Value != "unknown" && player2Value == "unknown")
-            {
-                return HandResult.Win;
-            }
+            //if (player1Value != "unknown" && player2Value == "unknown")
+            //{
+            //    return HandResult.Win;
+            //}
 
-            if (player1Value == "unknown" && player2Value == "unknown")
-            {
-                return HandResult.Draw;
-            }
+            //if (player1Value == "unknown" && player2Value == "unknown")
+            //{
+            //    return HandResult.Draw;
+            //}
 
             switch (attribute)
             {
@@ -124,6 +123,15 @@ namespace StarWarsTopTrumps.Engine
                     player1Value = player1Value.Replace(",", "");
                     player2Value = player2Value.Replace(",", "");
 
+                    player1Value = player1Value.Replace("unknown", "0");
+                    player2Value = player2Value.Replace("unknown", "0");
+
+                    player1Value = player1Value.Replace("n/a", "0");
+                    player2Value = player2Value.Replace("n/a", "0");
+
+                    player1Value = player1Value.Replace("km", "");
+                    player2Value = player2Value.Replace("km", "");
+
                     if (Convert.ToInt64(player1Value) == Convert.ToInt64(player2Value))
                         return HandResult.Draw;
                     else if (Convert.ToInt64(player1Value) > Convert.ToInt64(player2Value))
@@ -131,7 +139,10 @@ namespace StarWarsTopTrumps.Engine
                     else
                         return HandResult.Lose;
 
-                case StarShipAttributes.HyperDriveRating:
+                case StarShipAttributes.CargoCapacity:
+
+                    player1Value = player1Value.Replace("unknown", "0");
+                    player2Value = player2Value.Replace("unknown", "0");
 
                     if (Convert.ToDecimal(player1Value) == Convert.ToDecimal(player2Value))
                         return HandResult.Draw;

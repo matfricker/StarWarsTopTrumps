@@ -1,5 +1,5 @@
 ﻿@using StarWarsTopTrumps.Engine
-@model StarWarsTopTrumps.Models.GameData
+@model StarWarsTopTrumps.Engine.GameData
 
 @{
     ViewData["Title"] = "Start Game";
@@ -42,11 +42,11 @@
                                 }
                             </li>
                             <li class="list-group-item">
-                                <label>Hyper-Drive Rating:</label>
-                                <strong>@Model.Player1.StarShipCardHand[0].HyperDriveRating</strong>
+                                <label>Cargo Capacity:</label>
+                                <strong>@Model.Player1.StarShipCardHand[0].CargoCapacity</strong>
                                 @if (Model.HandResult.Equals(HandResult.None))
                                 {
-                                    @Html.ActionLink("Play", "CompareAttributes", "Home", new { attribute = StarShipAttributes.HyperDriveRating }, new { @class="float-right btn btn-outline-primary btn-sm" })
+                                    @Html.ActionLink("Play", "CompareAttributes", "Home", new { attribute = StarShipAttributes.CargoCapacity }, new { @class="float-right btn btn-outline-primary btn-sm" })
                                 }
                             </li>
                             <li class="list-group-item">
@@ -83,39 +83,38 @@
                         <div class="card-title">
                             <span class="badge badge-warning">@Model.Player2.Name.ToUpper()</span>
                             <div class="float-right">
-                                <span class="small">Cards left:</span> <span class="badge badge-danger">@Model.Player2.Score</span>
                                 <span class="small">Score:</span> <span class="badge badge-danger">@Model.Player2.Score</span>
                             </div>
                         </div>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
                                 <label>Starship Name:</label>
-                                <strong>?</strong>
+                                <strong>*</strong>
                                 @*<strong>@Model.Player2.StarShipCardHand[0].Name</strong>*@
                             </li>
                             <li class="list-group-item">
                                 <label>Credits Cost:</label>
-                                <strong>?</strong>
+                                <strong>*</strong>
                                 @*<strong>@Model.Player2.StarShipCardHand[0].CostOfCredits</strong>*@
                             </li>
                             <li class="list-group-item">
-                                <label>Hyper-Drive Rating:</label>
-                                <strong>?</strong>
-                                @*<strong>@Model.Player2.StarShipCardHand[0].HyperDriveRating</strong>*@
+                                <label>Cargo Capacity:</label>
+                                <strong>*</strong>
+                                @*<strong>@Model.Player2.StarShipCardHand[0].CargoCapacity</strong>*@
                             </li>
                             <li class="list-group-item">
                                 <label>Top Speed:</label>
-                                <strong>?</strong>
+                                <strong>*</strong>
                                 @*<strong>@Model.Player2.StarShipCardHand[0].TopSpeed</strong>*@
                             </li>
                             <li class="list-group-item">
                                 <label>No. Of Films:</label>
-                                <strong>?</strong>
+                                <strong>*</strong>
                                 @*<strong>@Model.Player2.StarShipCardHand[0].NumberOfFilms</strong>*@
                             </li>
                             <li class="list-group-item">
                                 <label>Crew Required:</label>
-                                <strong>?</strong>
+                                <strong>*</strong>
                                 @*<strong>@Model.Player2.StarShipCardHand[0].CrewRequired</strong>*@
                             </li>
                         </ul>

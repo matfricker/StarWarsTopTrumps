@@ -5,7 +5,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\SharpTrooper\SharpTrooper.csproj" />
+      <Reference Include="SharpTrooper">
+        <HintPath>libraries\SharpTrooper.dll</HintPath>
+      </Reference>
     </ItemGroup>
 
 </Project>

@@ -137,11 +137,11 @@ namespace StarWarsTopTrumps.Controllers
                     result = cards.CompareAttributes(player1Value, player2Value, attribute);
                     message = GetResultMessage(result, "Played cost of credits, {0} beats {1}", player1Value, player2Value);
                     break;
-                case StarShipAttributes.HyperDriveRating:
-                    player1Value = gameData.Player1.StarShipCardHand[0].HyperDriveRating;
-                    player2Value = gameData.Player2.StarShipCardHand[0].HyperDriveRating;
+                case StarShipAttributes.CargoCapacity:
+                    player1Value = gameData.Player1.StarShipCardHand[0].CargoCapacity;
+                    player2Value = gameData.Player2.StarShipCardHand[0].CargoCapacity;
                     result = cards.CompareAttributes(player1Value, player2Value, attribute);
-                    message = GetResultMessage(result, "Played hyper-drive rating, {0} beats {1}", player1Value, player2Value);
+                    message = GetResultMessage(result, "Played cargo-capacity rating, {0} beats {1}", player1Value, player2Value);
                     break;
                 case StarShipAttributes.TopSpeed:
                     player1Value = gameData.Player1.StarShipCardHand[0].TopSpeed;

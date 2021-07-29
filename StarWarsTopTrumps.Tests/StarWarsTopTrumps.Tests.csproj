@@ -11,8 +11,13 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\SharpTrooper\SharpTrooper.csproj" />
         <ProjectReference Include="..\StarWarsTopTrumps.Engine\StarWarsTopTrumps.Engine.csproj" />
   </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="SharpTrooper">
+        <HintPath>..\StarWarsTopTrumps.Engine\libraries\SharpTrooper.dll</HintPath>
+      </Reference>
+    </ItemGroup>
 
 </Project>

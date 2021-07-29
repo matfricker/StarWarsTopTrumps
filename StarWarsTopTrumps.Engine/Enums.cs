@@ -21,7 +21,7 @@ namespace StarWarsTopTrumps.Engine
     public enum StarShipAttributes
     {
         CostOfCredits,
-        HyperDriveRating,
+        CargoCapacity,
         TopSpeed,
         NumberOfFilms,
         CrewRequired
