@@ -1,185 +1,118 @@
 ﻿@page "/play"
 
 @using StarWarsTopTrumps.Engine
+@inject NavigationManager _navigationManager
 
-@if (Loading)
+@if (_loading)
 {
-    <div class="alert alert-info">Loading...</div>
+    <div>Loading...</div>
 }
 else
 {
-    <div class="mt-2">
+    <div>
         @if (GameData.CardsDealt)
         {
             <div class="row">
-                <div class="col-sm">
-                    <div class="card" style="width: 100%;">
-                        <div class="card-body">
-                            <div class="card-title">
-                                @if (GameData.Player1.ToStart)
+                <div class="column">
+                    <div class="column-contents">
+                        <div>@GameData.Player1.Name</div>
+                        <div>
+                            <span>Cards left:</span> <span>@GameData.Player1.StarShipCardHand.Count</span>
+                        </div>
+                        <div>
+                            <span>Score:</span> <span>@GameData.Player1.Score</span>
+                        </div>
+        
+                        @if (GameData.Player1.StarShipCardHand.Count > 0)
+                        {
+                            <label>Starship Name:</label>
+                            <strong>@GameData.Player1.StarShipCardHand[0].Name</strong>
+
+                            @if (GameData.Hand.HandResult.Equals(HandResult.None))
+                            {
+                                <button @onclick="e => CompareAttributes(e, StarShipAttributes.CostOfCredits.ToString())">
+                                    Cost of credits: @GameData.Player1.StarShipCardHand[0].CostOfCredits
+                                </button>
+                            }
+
+                            @if (GameData.Hand.HandResult.Equals(HandResult.None))
+                            {
+                                <button @onclick="e => CompareAttributes(e, StarShipAttributes.CargoCapacity.ToString())">
+                                    Cargo Capacity: @GameData.Player1.StarShipCardHand[0].CargoCapacity
+                                </button>
+                            }
+
+                            @if (GameData.Hand.HandResult.Equals(HandResult.None))
+                            {
+                                <button @onclick="e => CompareAttributes(e, StarShipAttributes.TopSpeed.ToString())">
+                                    Top speed: @GameData.Player1.StarShipCardHand[0].TopSpeed
+                                </button>
+                            }
+
+                            @if (GameData.Hand.HandResult.Equals(HandResult.None))
+                            {
+                                <button @onclick="e => CompareAttributes(e, StarShipAttributes.NumberOfFilms.ToString())">
+                                    No. of films: @GameData.Player1.StarShipCardHand[0].NumberOfFilms
+                                </button>
+                            }
+
+                            @if (GameData.Hand.HandResult.Equals(HandResult.None))
+                            {
+                                <button @onclick="e => CompareAttributes(e, StarShipAttributes.CrewRequired.ToString())">
+                                    Crew Required: @GameData.Player1.StarShipCardHand[0].CrewRequired
+                                </button>
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="column-contents">
+                        <div>@GameData.Player2.Name</div>
+                        <div>
+                            <span>Score:</span> <span>@GameData.Player2.Score</span>
+                        </div>
+
+                        @*
+                        <label>Starship Name:</label>
+                        <strong>@GameData.Player2.StarShipCardHand[0].Name</strong>
+                    
+                        <label>Credits Cost:</label>
+                        <strong>@GameData.Player2.StarShipCardHand[0].CostOfCredits</strong>
+                    
+                        <label>Cargo Capacity:</label>
+                        <strong>@GameData.Player2.StarShipCardHand[0].CargoCapacity</strong>
+                    
+                        <label>Top Speed:</label>
+                        <strong>@GameData.Player2.StarShipCardHand[0].TopSpeed</strong>
+                    
+                        <label>No. Of Films:</label>
+                        <strong>@GameData.Player2.StarShipCardHand[0].NumberOfFilms</strong>
+                    
+                        <label>Crew Required:</label>
+                        <strong>@GameData.Player2.StarShipCardHand[0].CrewRequired</strong>
+                        *@
+                        
+                        @if (GameData.Hand.HandResult != HandResult.None)
+                        {
+                            if (GameData.Hand.Message != string.Empty)
+                            {
+                                @if (GameData.Hand.HandResult.Equals(HandResult.Draw))
                                 {
-                                    <span class="badge badge-warning">@GameData.Player1.Name.ToUpper() TO START</span>
+                                    <h4>@GameData.Hand.Message</h4>
+                                }
+                                else if (GameData.Hand.HandResult.Equals(HandResult.Lose))
+                                {
+                                    <h4>@GameData.Hand.Message</h4>
                                 }
                                 else
                                 {
-                                    <span class="badge badge-warning">@GameData.Player1.Name.ToUpper()</span>
+                                    <h4>@GameData.Hand.Message</h4>
                                 }
-
-                                <div class="float-right">
-                                    <span class="small">Cards left:</span> <span class="badge badge-danger">@GameData.Player1.StarShipCardHand.Count</span>
-                                    <span class="small">Score:</span> <span class="badge badge-danger">@GameData.Player1.Score</span>
-                                </div>
-                            </div>
-                            
-                            @if (GameData.Player1.StarShipCardHand.Count > 0)
-                            {
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">
-                                        <label>Starship Name:</label>
-                                        <strong>@GameData.Player1.StarShipCardHand[0].Name</strong>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <label>Cost of credits:</label>
-                                        <strong>@GameData.Player1.StarShipCardHand[0].CostOfCredits</strong>
-                                    
-                                        @if (GameData.HandResult.Equals(HandResult.None))
-                                        {
-                                            @*@Html.ActionLink("Play", "CompareAttributes", "Home", new { attribute = StarShipAttributes.CostOfCredits }, new { @class="float-right btn btn-outline-primary btn-sm" })*@
-                                        }
-                                    </li>
-                                    <li class="list-group-item">
-                                        <label>Cargo Capacity:</label>
-                                        <strong>@GameData.Player1.StarShipCardHand[0].CargoCapacity</strong>
-                                        @if (GameData.HandResult.Equals(HandResult.None))
-                                        {
-                                            @*@Html.ActionLink("Play", "CompareAttributes", "Home", new { attribute = StarShipAttributes.CargoCapacity }, new { @class="float-right btn btn-outline-primary btn-sm" })*@
-                                        }
-                                    </li>
-                                    <li class="list-group-item">
-                                        <label>Top speed:</label>
-                                        <strong>@GameData.Player1.StarShipCardHand[0].TopSpeed</strong>
-                                        @if (GameData.HandResult.Equals(HandResult.None))
-                                        {
-                                            @*@Html.ActionLink("Play", "CompareAttributes", "Home", new { attribute = StarShipAttributes.TopSpeed }, new { @class="float-right btn btn-outline-primary btn-sm" })*@
-                                        }
-                                    </li>
-                                    <li class="list-group-item">
-                                        <label>No. of films:</label>
-                                        <strong>@GameData.Player1.StarShipCardHand[0].NumberOfFilms</strong>
-                                        @if (GameData.HandResult.Equals(HandResult.None))
-                                        {
-                                            @*@Html.ActionLink("Play", "CompareAttributes", "Home", new { attribute = StarShipAttributes.NumberOfFilms }, new { @class="float-right btn btn-outline-primary btn-sm" })*@
-                                        }
-                                    </li>
-                                    <li class="list-group-item">
-                                        <label>Crew Required:</label>
-                                        <strong>@GameData.Player1.StarShipCardHand[0].CrewRequired</strong>
-                                        @if (GameData.HandResult.Equals(HandResult.None))
-                                        {
-                                            @*@Html.ActionLink("Play", "compareattributes", "home", new { attribute = StarShipAttributes.CrewRequired }, new { @class="float-right btn btn-outline-primary btn-sm" })*@
-                                        }
-                                    </li>
-                                </ul>
+                                <p>Player 1 value: @GameData.Hand.Player1Value</p>
+                                <p>Player 2 value: @GameData.Hand.Player2Value</p>
+                                <button @onclick="NextCards">Continue</button>
                             }
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm">
-                    <div class="card" style="width: 100%;">
-                        <div class="card-body">
-                            <div class="card-title">
-                                <span class="badge badge-warning">@GameData.Player2.Name.ToUpper()</span>
-                                <div class="float-right">
-                                    <span class="small">Score:</span> <span class="badge badge-danger">@GameData.Player2.Score</span>
-                                </div>
-                            </div>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">
-                                    <label>Starship Name:</label>
-                                    <strong>*</strong>
-                                    @*<strong>@Model.Player2.StarShipCardHand[0].Name</strong>*@
-                                </li>
-                                <li class="list-group-item">
-                                    <label>Credits Cost:</label>
-                                    <strong>*</strong>
-                                    @*<strong>@Model.Player2.StarShipCardHand[0].CostOfCredits</strong>*@
-                                </li>
-                                <li class="list-group-item">
-                                    <label>Cargo Capacity:</label>
-                                    <strong>*</strong>
-                                    @*<strong>@Model.Player2.StarShipCardHand[0].CargoCapacity</strong>*@
-                                </li>
-                                <li class="list-group-item">
-                                    <label>Top Speed:</label>
-                                    <strong>*</strong>
-                                    @*<strong>@Model.Player2.StarShipCardHand[0].TopSpeed</strong>*@
-                                </li>
-                                <li class="list-group-item">
-                                    <label>No. Of Films:</label>
-                                    <strong>*</strong>
-                                    @*<strong>@Model.Player2.StarShipCardHand[0].NumberOfFilms</strong>*@
-                                </li>
-                                <li class="list-group-item">
-                                    <label>Crew Required:</label>
-                                    <strong>*</strong>
-                                    @*<strong>@Model.Player2.StarShipCardHand[0].CrewRequired</strong>*@
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            @if (GameData.HandResult != HandResult.None)
-            {
-                @*<script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
-                <script type="text/javascript">
-                    $(function() {
-                        $('#modal').modal();
-                    });
-                </script>*@
-            }
-        
-
-            <!-- Modal -->
-            <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="modalTitle">Result</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                        
-                            @if (GameData.HandResult.Equals(HandResult.Win))
-                            {
-                                <div class="alert alert-success mt-2" role="alert">
-                                    <h4 class="alert-heading">Player Wins</h4>
-                                    <p>@GameData.HandMessage</p>
-                                </div>
-                            }
-
-                            @if (GameData.HandResult.Equals(HandResult.Lose))
-                            {
-                                <div class="alert alert-danger mt-2" role="alert">
-                                    <h4 class="alert-heading">Computer Wins</h4>
-                                    <p>@GameData.HandMessage</p>
-                                </div>
-                            }
-
-                            @if (GameData.HandResult.Equals(HandResult.Draw))
-                            {
-                                <div class="alert alert-warning mt-2" role="alert">
-                                    <h4 class="alert-heading">It's a draw</h4>
-                                </div>
-                            }
-
-                        </div>
-                        <div class="modal-footer">
-                            @*@Html.ActionLink("Next Card", "Play", "Home", new { player = 1, result = string.Empty, message = string.Empty, nextCard = true }, new { @class = "btn btn-primary" })*@
-                        </div>
+                        }
                     </div>
                 </div>
             </div>

@@ -26,4 +26,11 @@ namespace StarWarsTopTrumps.Engine
         NumberOfFilms,
         CrewRequired
     }
+
+    public enum GameResult
+    {
+        Win,
+        Lose,
+        Draw
+    }
 }

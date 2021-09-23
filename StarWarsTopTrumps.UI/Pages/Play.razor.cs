@@ -1,26 +1,29 @@
-﻿using StarWarsTopTrumps.Engine;
-using System.Threading.Tasks;
+﻿using System;
+using StarWarsTopTrumps.Engine;
+using Microsoft.AspNetCore.Components.Web;
+using StarWarsTopTrumps.Engine.libraries;
 
 namespace StarWarsTopTrumps.UI.Pages
 {
     public partial class Play
     {
-        private bool Loading;
+        private bool _loading;
         private GameData GameData { get; set; }
         private Player Player1 { get; set; }
         private Player Player2 { get; set; }
 
         protected override void OnInitialized()
         {
-            Loading = true;
+            _loading = true;
 
             Player1 = new Player { Name = "Player 1" };
-            Player2 = new Player { Name = "Player 2", IsComputer = true };
+            Player2 = new Player { Name = "Computer", IsComputer = true };
 
             GameData = new GameData()
             {
                 Player1 = Player1,
-                Player2 = Player2
+                Player2 = Player2,
+                Hand = new Hand()
             };
 
             GameData.Player1.ToStart = true;
@@ -29,7 +32,98 @@ namespace StarWarsTopTrumps.UI.Pages
             cards.Deal(GameData.Player1, GameData.Player2);
             GameData.CardsDealt = true;
 
-            Loading = false;
+            _loading = false;
+        }
+
+        private void CompareAttributes(MouseEventArgs e, string attribute)
+        {
+            var playerOneHand = GameData.Player1.StarShipCardHand[0];
+            var playerTwoHand = GameData.Player2.StarShipCardHand[0];
+
+            switch (Enum.Parse<StarShipAttributes>(attribute))
+            {
+                case StarShipAttributes.CostOfCredits:
+                    CompareValues(playerOneHand.CostOfCredits, playerTwoHand.CostOfCredits);
+                    break;
+                case StarShipAttributes.CargoCapacity:
+                    CompareValues(playerOneHand.CargoCapacity, playerTwoHand.CargoCapacity);
+                    break;
+                case StarShipAttributes.TopSpeed:
+                    CompareValues(playerOneHand.TopSpeed, playerTwoHand.TopSpeed);
+                    break;
+                case StarShipAttributes.NumberOfFilms:
+                    CompareValues(playerOneHand.NumberOfFilms, playerTwoHand.NumberOfFilms);
+                    break;
+                case StarShipAttributes.CrewRequired:
+                    CompareValues(playerOneHand.CrewRequired, playerTwoHand.CrewRequired);
+                    break;
+            }
+        }
+
+        private void NextCards(MouseEventArgs e)
+        {
+            GameData.Hand.HandResult = HandResult.None;
+            GameData.Hand.Message = string.Empty;
+
+            if (GameData.Player1.StarShipCardHand.Count > 1 && GameData.Player2.StarShipCardHand.Count > 1)
+            {
+                GameData.Player1.StarShipCardHand.RemoveAt(0);
+                GameData.Player2.StarShipCardHand.RemoveAt(0);
+            }
+            else
+            {
+                GameResult result;
+                if (GameData.Player1.Score == GameData.Player2.Score)
+                    result = GameResult.Draw;
+                else if (GameData.Player1.Score > GameData.Player2.Score)
+                    result = GameResult.Win;
+                else
+                    result = GameResult.Lose;
+                
+                _navigationManager.NavigateTo($"/endgame/{result}");
+            }
+        }
+
+        private void CompareValues(string playerValue, string computerValue)
+        {
+            // TODO: handle value with hyphen eg. 20-100
+            
+            playerValue = playerValue.Replace("km", "");
+            playerValue = playerValue.Replace(",", "");
+
+            if (playerValue == "unknown" || playerValue == "n/a")
+            {
+                playerValue = "0";
+            }
+            
+            computerValue = computerValue.Replace("km", "");
+            computerValue = computerValue.Replace(",", "");
+            
+            if (computerValue == "unknown" || computerValue == "n/a")
+            {
+                computerValue = "0";
+            }
+
+            GameData.Hand.Player1Value = long.Parse(playerValue);
+            GameData.Hand.Player2Value = long.Parse(computerValue);
+
+            if (GameData.Hand.Player1Value == GameData.Hand.Player2Value)
+            {
+                GameData.Hand.HandResult = HandResult.Draw;
+                GameData.Hand.Message = nameof(HandResult.Draw);
+            }
+            else if (GameData.Hand.Player1Value > GameData.Hand.Player2Value)
+            {
+                GameData.Hand.HandResult = HandResult.Win;
+                GameData.Hand.Message = nameof(HandResult.Win);
+                GameData.Player1.Score += 1;
+            }
+            else
+            {
+                GameData.Hand.HandResult = HandResult.Lose;
+                GameData.Hand.Message = nameof(HandResult.Lose);
+                GameData.Player2.Score += 1;
+            }
         }
     }
 }

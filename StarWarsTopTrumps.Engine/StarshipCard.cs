@@ -19,6 +19,10 @@ namespace StarWarsTopTrumps.Engine
 
         public string TopSpeed { get; set; }
 
+        public string HyperDriveRating { get; set; }
+
+        public string MGLT { get; set; }
+
         public string NumberOfFilms { get; set; }
 
         public string CrewRequired { get; set; }
@@ -41,6 +45,8 @@ namespace StarWarsTopTrumps.Engine
                         CostOfCredits = ship.cost_in_credits,
                         CargoCapacity = ship.cargo_capacity,
                         TopSpeed = ship.max_atmosphering_speed,
+                        HyperDriveRating = ship.hyperdrive_rating,
+                        MGLT = ship.MGLT,
                         NumberOfFilms = ship.films.Count.ToString(),
                         CrewRequired = ship.crew
                     };
