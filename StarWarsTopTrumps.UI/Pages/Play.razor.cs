@@ -74,14 +74,20 @@ namespace StarWarsTopTrumps.UI.Pages
             }
             else
             {
-                GameResult result;
+                string result;
                 if (GameData.Player1.Score == GameData.Player2.Score)
-                    result = GameResult.Draw;
+                {
+                    result = "It's a draw.";
+                }
                 else if (GameData.Player1.Score > GameData.Player2.Score)
-                    result = GameResult.Win;
+                {
+                    result = "Winner.";
+                }
                 else
-                    result = GameResult.Lose;
-                
+                {
+                    result = "You Lost.";
+                }
+
                 _navigationManager.NavigateTo($"/endgame/{result}");
             }
         }
@@ -137,7 +143,7 @@ namespace StarWarsTopTrumps.UI.Pages
             }
         }
 
-        private int GetMaxOrMinValue(string value, bool returnMax = true)
+        private static int GetMaxOrMinValue(string value, bool returnMax = true)
         {
             int max = 0;
             int min = 0;
