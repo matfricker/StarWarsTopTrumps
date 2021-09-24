@@ -1,3 +1,8 @@
+.content {
+    margin: 10px 0;
+    padding: 5px 20px;
+}
+
 .row {
     display: flex;
     flex-direction: row;
@@ -17,7 +22,7 @@
 }
 
 .attributes {
-    padding: 20px 0;
+    padding: 0;
 }
 
 .button-attribute,
