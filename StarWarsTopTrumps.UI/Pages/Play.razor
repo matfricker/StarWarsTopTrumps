@@ -59,30 +59,40 @@ else
                                 }
                             </div>
                         }
-                    </div>
-                </div>
-                <div class="column">
-                    <div class="column-contents">
+
                         @if (GameData.Hand.HandResult != HandResult.None)
                         {
                             if (GameData.Hand.Message != string.Empty)
                             {
                                 @if (GameData.Hand.HandResult.Equals(HandResult.Draw))
                                 {
-                                    <h4>@GameData.Hand.Message</h4>
+                                    <h1>@GameData.Hand.Message</h1>
                                 }
                                 else if (GameData.Hand.HandResult.Equals(HandResult.Lose))
                                 {
-                                    <h4>@GameData.Hand.Message</h4>
+                                    <h1>@GameData.Hand.Message</h1>
                                 }
                                 else
                                 {
-                                    <h4>@GameData.Hand.Message</h4>
+                                    <h1>@GameData.Hand.Message</h1>
                                 }
 
-                                <div style="padding: 0 0 10px 0;">
-                                    <label>Player: <strong>@GameData.Hand.Player1Value</strong></label>
-                                    <label>Computer: <strong>@GameData.Hand.Player2Value</strong></label>
+                                <div class="row">
+                                    <div class="column">
+                                        <label>Player:</label>
+                                    </div>
+                                    <div class="column" style="text-align: right;">
+                                        <strong>@GameData.Hand.Player1Value</strong>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="column">
+                                        <label>Computer:</label>
+                                    </div>
+                                    <div class="column" style="text-align: right;">
+                                        <strong>@GameData.Hand.Player2Value</strong>
+                                    </div>
                                 </div>
 
                                 <button @onclick="NextCards">Continue</button>
