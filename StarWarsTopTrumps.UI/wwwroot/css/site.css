@@ -20,6 +20,19 @@
     padding: 20px 0;
 }
 
+.button-attribute,
+.button-attribute-value {
+    display: block;
+}
+
+.button-attribute {
+    font-size: 0.8rem;
+}
+
+.button-attribute-value {
+    font-size: 1.5rem;
+}
+
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;

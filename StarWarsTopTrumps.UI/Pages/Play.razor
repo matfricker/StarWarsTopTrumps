@@ -38,23 +38,28 @@ else
                                     </div>
 
                                     <button @onclick="e => CompareAttributes(e, StarShipAttributes.CostOfCredits.ToString())">
-                                        Cost of credits: @GameData.Player1.StarShipCardHand[0].CostOfCredits
+                                        <span class="button-attribute">Cost of Credits</span>
+                                        <span class="button-attribute-value">@GameData.Player1.StarShipCardHand[0].CostOfCredits</span>
                                     </button>
 
                                     <button @onclick="e => CompareAttributes(e, StarShipAttributes.CargoCapacity.ToString())">
-                                        Cargo Capacity: @GameData.Player1.StarShipCardHand[0].CargoCapacity
+                                        <span class="button-attribute">Cargo Capacity</span>
+                                        <span class="button-attribute-value">@GameData.Player1.StarShipCardHand[0].CargoCapacity</span>
                                     </button>
 
                                     <button @onclick="e => CompareAttributes(e, StarShipAttributes.TopSpeed.ToString())">
-                                        Top speed: @GameData.Player1.StarShipCardHand[0].TopSpeed
+                                        <span class="button-attribute">Top Speed</span>
+                                        <span class="button-attribute-value">@GameData.Player1.StarShipCardHand[0].TopSpeed</span>
                                     </button>
 
                                     <button @onclick="e => CompareAttributes(e, StarShipAttributes.NumberOfFilms.ToString())">
-                                        No. of films: @GameData.Player1.StarShipCardHand[0].NumberOfFilms
+                                        <span class="button-attribute">No. of Films</span>
+                                        <span class="button-attribute-value">@GameData.Player1.StarShipCardHand[0].NumberOfFilms</span>
                                     </button>
 
                                     <button @onclick="e => CompareAttributes(e, StarShipAttributes.CrewRequired.ToString())">
-                                        Crew Required: @GameData.Player1.StarShipCardHand[0].CrewRequired
+                                        <span class="button-attribute">Crew Required</span>
+                                        <span class="button-attribute-value">@GameData.Player1.StarShipCardHand[0].CrewRequired</span>
                                     </button>
                                 }
                             </div>
