@@ -2,6 +2,8 @@
 using StarWarsTopTrumps.Engine;
 using Microsoft.AspNetCore.Components.Web;
 using StarWarsTopTrumps.Engine.libraries;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace StarWarsTopTrumps.UI.Pages
 {
@@ -16,7 +18,7 @@ namespace StarWarsTopTrumps.UI.Pages
         {
             _loading = true;
 
-            Player1 = new Player { Name = "Player 1" };
+            Player1 = new Player { Name = "Player" };
             Player2 = new Player { Name = "Computer", IsComputer = true };
 
             GameData = new GameData()
@@ -86,8 +88,6 @@ namespace StarWarsTopTrumps.UI.Pages
 
         private void CompareValues(string playerValue, string computerValue)
         {
-            // TODO: handle value with hyphen eg. 20-100
-            
             playerValue = playerValue.Replace("km", "");
             playerValue = playerValue.Replace(",", "");
 
@@ -102,6 +102,17 @@ namespace StarWarsTopTrumps.UI.Pages
             if (computerValue == "unknown" || computerValue == "n/a")
             {
                 computerValue = "0";
+            }
+
+            // 30-165
+            if (playerValue.Contains('-'))
+            {
+                playerValue = GetMaxOrMinValue(playerValue).ToString();
+            }
+
+            if (computerValue.Contains('-'))
+            {
+                computerValue = GetMaxOrMinValue(computerValue).ToString();
             }
 
             GameData.Hand.Player1Value = long.Parse(playerValue);
@@ -124,6 +135,29 @@ namespace StarWarsTopTrumps.UI.Pages
                 GameData.Hand.Message = nameof(HandResult.Lose);
                 GameData.Player2.Score += 1;
             }
+        }
+
+        private int GetMaxOrMinValue(string value, bool returnMax = true)
+        {
+            int max = 0;
+            int min = 0;
+            if (value.Contains('-'))
+            {
+                var range = value.Split('-');
+                List<int> values = new();
+                foreach (var item in range)
+                {
+                    values.Add(int.Parse(item));
+                }
+
+                max = values.Max();
+                min = values.Min();
+            }
+
+            if (returnMax)
+                return max;
+            else
+                return min;
         }
     }
 }

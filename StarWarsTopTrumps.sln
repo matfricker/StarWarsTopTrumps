@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31507.150
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31717.71
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StarWarsTopTrumps.Tests", "StarWarsTopTrumps.Tests\StarWarsTopTrumps.Tests.csproj", "{B2325E46-6663-4DC8-B7E4-3C7382F12D18}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StarWarsTopTrumps.Engine", "StarWarsTopTrumps.Engine\StarWarsTopTrumps.Engine.csproj", "{E8EF84D2-8A65-4EE1-83F6-166D6520DB11}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StarWarsTopTrumps.UI", "StarWarsTopTrumps.UI\StarWarsTopTrumps.UI.csproj", "{5E4C27B7-09A4-4716-9678-F8D229BD57E6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StarWarsTopTrumps.Tests", "StarWarsTopTrumps.Tests\StarWarsTopTrumps.Tests.csproj", "{E8AA973B-4450-4E5F-8F47-05898B88B0EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,10 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B2325E46-6663-4DC8-B7E4-3C7382F12D18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B2325E46-6663-4DC8-B7E4-3C7382F12D18}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B2325E46-6663-4DC8-B7E4-3C7382F12D18}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B2325E46-6663-4DC8-B7E4-3C7382F12D18}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E8EF84D2-8A65-4EE1-83F6-166D6520DB11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E8EF84D2-8A65-4EE1-83F6-166D6520DB11}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E8EF84D2-8A65-4EE1-83F6-166D6520DB11}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -27,6 +23,10 @@ Global
 		{5E4C27B7-09A4-4716-9678-F8D229BD57E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E4C27B7-09A4-4716-9678-F8D229BD57E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5E4C27B7-09A4-4716-9678-F8D229BD57E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8AA973B-4450-4E5F-8F47-05898B88B0EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8AA973B-4450-4E5F-8F47-05898B88B0EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8AA973B-4450-4E5F-8F47-05898B88B0EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8AA973B-4450-4E5F-8F47-05898B88B0EB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
