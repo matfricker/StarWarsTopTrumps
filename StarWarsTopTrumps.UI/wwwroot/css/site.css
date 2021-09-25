@@ -38,11 +38,6 @@
     font-size: 1.5rem;
 }
 
-.button-end-game {
-    padding: 5px 40px !important;
-    margin-bottom: 20px;
-}
-
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;

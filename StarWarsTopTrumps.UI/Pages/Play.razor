@@ -9,24 +9,34 @@
 }
 else
 {
-    <div>
-        <a role="button" class="button-end-game" href="/">End Game</a>
+    <div style="padding: 20px 0;">
+        
         @if (GameData.CardsDealt)
         {
             <div class="row">
                 <div class="column">
                     <div class="column-contents">
-                        <div>
-                            @GameData.Player1.Name : <strong>@GameData.Player1.Score</strong>
-                            &nbsp;
-                            /
-                            &nbsp;
-                            @GameData.Player2.Name : <strong>@GameData.Player2.Score</strong>
+
+                        <div class="row">
+                            <div class="column">
+                                <div>
+                                    @GameData.Player1.Name : <strong>@GameData.Player1.Score</strong>
+                                    &nbsp;
+                                    /
+                                    &nbsp;
+                                    @GameData.Player2.Name : <strong>@GameData.Player2.Score</strong>
+                                </div>
+
+                                <div>
+                                    <label>Remaining Cards: <strong>@GameData.Player1.StarShipCardHand.Count</strong></label>
+                                </div>
+                            </div>
+                            <div class="column" style="text-align: right;">
+                                <a href="/">Home</a>
+                            </div>
                         </div>
 
-                        <div>
-                            <label>Remaining Cards: <strong>@GameData.Player1.StarShipCardHand.Count</strong></label>
-                        </div>
+                        
         
                         @if (GameData.Player1.StarShipCardHand.Count > 0)
                         {
