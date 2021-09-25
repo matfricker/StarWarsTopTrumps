@@ -36,8 +36,6 @@ else
                             </div>
                         </div>
 
-                        
-        
                         @if (GameData.Player1.StarShipCardHand.Count > 0)
                         {
                             <div class="attributes">
@@ -111,7 +109,10 @@ else
                                     </div>
                                 </div>
 
-                                <button @onclick="NextCards">Continue</button>
+                                <div style="margin-top: 15px;">
+                                    <button @onclick="NextCards">Continue</button>
+                                </div>
+                                
                             }
                         }
                     </div>
