@@ -7,7 +7,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head data-theme="dark">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>StarWarsTopTrumps.UI</title>
@@ -17,11 +17,9 @@
     <link href="StarWarsTopTrumps.UI.styles.css" rel="stylesheet" />
 </head>
 <body>
-    <div style="width: 350px; margin: 0 auto;">
+    <article class="main">
         <component type="typeof(App)" render-mode="ServerPrerendered" />
-        <a role="button" style="display: block; font-size: 0.75rem; text-align: center; padding: 5px; margin-bottom: 20px;" href="/">End Game</a>
-    </div>
-    
+    </article>
 
     <div id="blazor-error-ui">
         <environment include="Staging,Production">
