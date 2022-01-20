@@ -5,6 +5,6 @@ Each card contains a list of numerical data, and the aim of the game is to compa
 
 Description above is from Wikipedia
 
-# Deployed to Azure Web App
+## Deployed to Azure Web App
 
 https://fricker-swtt.azurewebsites.net/
