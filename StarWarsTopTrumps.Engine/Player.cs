@@ -15,11 +15,5 @@ namespace StarWarsTopTrumps.Engine
         public bool ToStart { get; set; }
 
         public List<StarShipCard> StarShipCardHand { get; set; }
-
-        public Player ChoosePlayerToStart(Player player)
-        {
-            player.ToStart = true;
-            return player;
-        }
     }
 }

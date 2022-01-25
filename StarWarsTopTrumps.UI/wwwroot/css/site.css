@@ -1,3 +1,9 @@
+.container {
+    width: 800px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
 .content {
     margin: 10px 0;
     padding: 5px 20px;
@@ -19,6 +25,17 @@
 
 .column-contents {
     padding: 10px 0;
+}
+
+.score {
+    width: 250px;
+    padding: 10px;
+    border: solid 1px rgb(80, 80, 80);
+    border-radius: 4px;
+}
+
+.score h4 {
+    margin: 0;
 }
 
 .attributes {

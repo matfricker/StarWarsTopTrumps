@@ -1,4 +1,4 @@
-﻿namespace StarWarsTopTrumps.Engine.libraries
+﻿namespace StarWarsTopTrumps.Engine
 {
     public class Hand
     {

@@ -9,7 +9,7 @@
 }
 else
 {
-    <div style="padding: 20px 0;">
+    <div class="container">
         
         @if (GameData.CardsDealt)
         {
@@ -20,15 +20,17 @@ else
                         <div class="row">
                             <div class="column">
                                 <div>
-                                    @GameData.Player1.Name : <strong>@GameData.Player1.Score</strong>
-                                </div>
-
-                                <div>
-                                    @GameData.Player2.Name : <strong>@GameData.Player2.Score</strong>
-                                </div>
-
-                                <div>
                                     <label>Remaining Cards: <strong>@GameData.Player1.StarShipCardHand.Count</strong></label>
+                                </div>
+                                <div class="score">
+                                    <h4>Score</h4>
+                                    <div>
+                                        @GameData.Player1.Name : <strong>@GameData.Player1.Score</strong>
+                                    </div>
+
+                                    <div>
+                                        @GameData.Player2.Name : <strong>@GameData.Player2.Score</strong>
+                                    </div>
                                 </div>
                             </div>
                             <div class="column" style="text-align: right;">
@@ -46,27 +48,27 @@ else
                                         <strong>@GameData.Player1.StarShipCardHand[0].Name</strong>
                                     </div>
 
-                                    <button @onclick="e => CompareAttributes(e, StarShipAttributes.CostOfCredits.ToString())">
+                                    <button @onclick="e => CompareAttributes(StarShipAttributes.CostOfCredits.ToString())">
                                         <span class="button-attribute">Cost of Credits</span>
                                         <span class="button-attribute-value">@GameData.Player1.StarShipCardHand[0].CostOfCredits</span>
                                     </button>
 
-                                    <button @onclick="e => CompareAttributes(e, StarShipAttributes.CargoCapacity.ToString())">
+                                    <button @onclick="e => CompareAttributes(StarShipAttributes.CargoCapacity.ToString())">
                                         <span class="button-attribute">Cargo Capacity</span>
                                         <span class="button-attribute-value">@GameData.Player1.StarShipCardHand[0].CargoCapacity</span>
                                     </button>
 
-                                    <button @onclick="e => CompareAttributes(e, StarShipAttributes.TopSpeed.ToString())">
+                                    <button @onclick="e => CompareAttributes(StarShipAttributes.TopSpeed.ToString())">
                                         <span class="button-attribute">Top Speed</span>
                                         <span class="button-attribute-value">@GameData.Player1.StarShipCardHand[0].TopSpeed</span>
                                     </button>
 
-                                    <button @onclick="e => CompareAttributes(e, StarShipAttributes.NumberOfFilms.ToString())">
+                                    <button @onclick="e => CompareAttributes(StarShipAttributes.NumberOfFilms.ToString())">
                                         <span class="button-attribute">No. of Films</span>
                                         <span class="button-attribute-value">@GameData.Player1.StarShipCardHand[0].NumberOfFilms</span>
                                     </button>
 
-                                    <button @onclick="e => CompareAttributes(e, StarShipAttributes.CrewRequired.ToString())">
+                                    <button @onclick="e => CompareAttributes(StarShipAttributes.CrewRequired.ToString())">
                                         <span class="button-attribute">Crew Required</span>
                                         <span class="button-attribute-value">@GameData.Player1.StarShipCardHand[0].CrewRequired</span>
                                     </button>

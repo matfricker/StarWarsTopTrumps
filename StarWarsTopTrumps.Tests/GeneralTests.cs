@@ -7,26 +7,6 @@ namespace StarWarsTopTrumps.Tests
     public class GeneralTests
     {
         [Fact]
-        public void ChoosePlayerToStart()
-        {
-            Player player1 = new();
-            player1.ChoosePlayerToStart(player1);
-
-            Assert.True(player1.ToStart);
-        }
-
-        [Fact]
-        public void ChooseComputerToStart()
-        {
-            Player player1 = new();
-            var player2 = new Player { IsComputer = true };
-
-            player1.ChoosePlayerToStart(player2);
-
-            Assert.True(player2.ToStart && player2.IsComputer);
-        }
-
-        [Fact]
         public void CheckAllCardsReturned()
         {
             StarShipCard starShipCards = new();

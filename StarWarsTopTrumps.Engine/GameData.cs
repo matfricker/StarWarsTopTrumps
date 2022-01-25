@@ -1,6 +1,4 @@
-﻿using StarWarsTopTrumps.Engine.libraries;
-
-namespace StarWarsTopTrumps.Engine
+﻿namespace StarWarsTopTrumps.Engine
 {
     public class GameData
     {

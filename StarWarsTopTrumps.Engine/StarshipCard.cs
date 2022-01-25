@@ -90,21 +90,6 @@ namespace StarWarsTopTrumps.Engine
 
         public HandResult CompareAttributes(string player1Value, string player2Value, StarShipAttributes attribute)
         {
-            //if (player1Value == "unknown" && player2Value != "unknown")
-            //{
-            //    return HandResult.Lose;
-            //}
-
-            //if (player1Value != "unknown" && player2Value == "unknown")
-            //{
-            //    return HandResult.Win;
-            //}
-
-            //if (player1Value == "unknown" && player2Value == "unknown")
-            //{
-            //    return HandResult.Draw;
-            //}
-
             switch (attribute)
             {
                 case StarShipAttributes.CostOfCredits:

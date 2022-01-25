@@ -1,7 +1,6 @@
 ﻿using System;
 using StarWarsTopTrumps.Engine;
 using Microsoft.AspNetCore.Components.Web;
-using StarWarsTopTrumps.Engine.libraries;
 using System.Linq;
 using System.Collections.Generic;
 
@@ -37,7 +36,7 @@ namespace StarWarsTopTrumps.UI.Pages
             _loading = false;
         }
 
-        private void CompareAttributes(MouseEventArgs e, string attribute)
+        private void CompareAttributes(string attribute)
         {
             var playerOneHand = GameData.Player1.StarShipCardHand[0];
             var playerTwoHand = GameData.Player2.StarShipCardHand[0];
