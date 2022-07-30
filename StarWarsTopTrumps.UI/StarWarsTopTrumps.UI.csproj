@@ -13,4 +13,8 @@
     <ProjectReference Include="..\StarWarsTopTrumps.Engine\StarWarsTopTrumps.Engine.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Properties\ServiceDependencies\" />
+  </ItemGroup>
+
 </Project>
