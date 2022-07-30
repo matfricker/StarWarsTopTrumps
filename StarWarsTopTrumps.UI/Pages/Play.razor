@@ -98,15 +98,15 @@ else
                             {
                                 @if (GameData.Hand.HandResult.Equals(HandResult.Draw))
                                 {
-                                    <h1 class="result">@GameData.Hand.Message</h1>
+                                    <h1 class="result draw">@GameData.Hand.Message</h1>
                                 }
                                 else if (GameData.Hand.HandResult.Equals(HandResult.Lose))
                                 {
-                                    <h1 class="result">@GameData.Hand.Message</h1>
+                                    <h1 class="result lose">@GameData.Hand.Message</h1>
                                 }
                                 else
                                 {
-                                    <h1 class="result">@GameData.Hand.Message</h1>
+                                    <h1 class="result win">@GameData.Hand.Message</h1>
                                 }
 
                                 <div class="row">

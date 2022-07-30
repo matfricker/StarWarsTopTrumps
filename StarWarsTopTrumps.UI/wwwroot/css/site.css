@@ -42,6 +42,18 @@
     font-size: 4rem;
 }
 
+.result.win {
+    color: #4de129
+}
+
+.result.lose {
+    color: #ff0000
+}
+
+.result.draw {
+    color: #ffd800
+}
+
 .attributes {
     margin-top: 20px;
     padding: 0;
