@@ -104,15 +104,15 @@ namespace StarWarsTopTrumps.UI.Pages
             string result;
             if (GameData.Player1.Score == GameData.Player2.Score)
             {
-                result = "It's a draw.";
+                result = "It's a draw";
             }
             else if (GameData.Player1.Score > GameData.Player2.Score)
             {
-                result = "Winner.";
+                result = "Winner";
             }
             else
             {
-                result = "You Lost.";
+                result = "You Lost";
             }
 
             _navigationManager.NavigateTo($"/endgame/{result}");
