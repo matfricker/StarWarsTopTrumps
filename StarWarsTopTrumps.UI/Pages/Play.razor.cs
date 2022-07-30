@@ -1,8 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Components.Web;
 using StarWarsTopTrumps.Engine;
-using Microsoft.AspNetCore.Components.Web;
-using System.Linq;
-using System.Collections.Generic;
+using System;
 
 namespace StarWarsTopTrumps.UI.Pages
 {
@@ -17,8 +15,8 @@ namespace StarWarsTopTrumps.UI.Pages
         {
             _loading = true;
 
-            Player1 = new Player { Name = "Player" };
-            Player2 = new Player { Name = "Computer", IsComputer = true };
+            Player1 = new Player { Name = "P1" };
+            Player2 = new Player { Name = "CPU", IsComputer = true };
 
             GameData = new GameData()
             {
@@ -61,6 +59,30 @@ namespace StarWarsTopTrumps.UI.Pages
             }
         }
 
+        private void CompareValues(decimal playerValue, decimal computerValue)
+        {
+            GameData.Hand.Player1Value = playerValue;
+            GameData.Hand.Player2Value = computerValue;
+
+            if (GameData.Hand.Player1Value == GameData.Hand.Player2Value)
+            {
+                GameData.Hand.HandResult = HandResult.Draw;
+                GameData.Hand.Message = nameof(HandResult.Draw).ToUpper();
+            }
+            else if (GameData.Hand.Player1Value > GameData.Hand.Player2Value)
+            {
+                GameData.Hand.HandResult = HandResult.Win;
+                GameData.Hand.Message = nameof(HandResult.Win).ToUpper();
+                GameData.Player1.Score += 1;
+            }
+            else
+            {
+                GameData.Hand.HandResult = HandResult.Lose;
+                GameData.Hand.Message = nameof(HandResult.Lose).ToUpper();
+                GameData.Player2.Score += 1;
+            }
+        }
+
         private void NextCards(MouseEventArgs e)
         {
             GameData.Hand.HandResult = HandResult.None;
@@ -73,96 +95,27 @@ namespace StarWarsTopTrumps.UI.Pages
             }
             else
             {
-                string result;
-                if (GameData.Player1.Score == GameData.Player2.Score)
-                {
-                    result = "It's a draw.";
-                }
-                else if (GameData.Player1.Score > GameData.Player2.Score)
-                {
-                    result = "Winner.";
-                }
-                else
-                {
-                    result = "You Lost.";
-                }
-
-                _navigationManager.NavigateTo($"/endgame/{result}");
+                FinishGame();
             }
         }
 
-        private void CompareValues(string playerValue, string computerValue)
+        private void FinishGame()
         {
-            playerValue = playerValue.Replace("km", "");
-            playerValue = playerValue.Replace(",", "");
-
-            if (playerValue == "unknown" || playerValue == "n/a")
+            string result;
+            if (GameData.Player1.Score == GameData.Player2.Score)
             {
-                playerValue = "0";
+                result = "It's a draw.";
             }
-            
-            computerValue = computerValue.Replace("km", "");
-            computerValue = computerValue.Replace(",", "");
-            
-            if (computerValue == "unknown" || computerValue == "n/a")
+            else if (GameData.Player1.Score > GameData.Player2.Score)
             {
-                computerValue = "0";
-            }
-
-            // 30-165
-            if (playerValue.Contains('-'))
-            {
-                playerValue = GetMaxOrMinValue(playerValue).ToString();
-            }
-
-            if (computerValue.Contains('-'))
-            {
-                computerValue = GetMaxOrMinValue(computerValue).ToString();
-            }
-
-            GameData.Hand.Player1Value = long.Parse(playerValue);
-            GameData.Hand.Player2Value = long.Parse(computerValue);
-
-            if (GameData.Hand.Player1Value == GameData.Hand.Player2Value)
-            {
-                GameData.Hand.HandResult = HandResult.Draw;
-                GameData.Hand.Message = nameof(HandResult.Draw);
-            }
-            else if (GameData.Hand.Player1Value > GameData.Hand.Player2Value)
-            {
-                GameData.Hand.HandResult = HandResult.Win;
-                GameData.Hand.Message = nameof(HandResult.Win);
-                GameData.Player1.Score += 1;
+                result = "Winner.";
             }
             else
             {
-                GameData.Hand.HandResult = HandResult.Lose;
-                GameData.Hand.Message = nameof(HandResult.Lose);
-                GameData.Player2.Score += 1;
-            }
-        }
-
-        private static int GetMaxOrMinValue(string value, bool returnMax = true)
-        {
-            int max = 0;
-            int min = 0;
-            if (value.Contains('-'))
-            {
-                var range = value.Split('-');
-                List<int> values = new();
-                foreach (var item in range)
-                {
-                    values.Add(int.Parse(item));
-                }
-
-                max = values.Max();
-                min = values.Min();
+                result = "You Lost.";
             }
 
-            if (returnMax)
-                return max;
-            else
-                return min;
+            _navigationManager.NavigateTo($"/endgame/{result}");
         }
     }
 }

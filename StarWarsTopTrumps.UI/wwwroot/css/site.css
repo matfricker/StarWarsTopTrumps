@@ -1,5 +1,5 @@
 .container {
-    width: 800px;
+    /*width: 800px;*/
     margin: 0 auto;
     padding: 20px 0;
 }
@@ -28,17 +28,22 @@
 }
 
 .score {
-    width: 250px;
-    padding: 10px;
+    padding: 30px;
     border: solid 1px rgb(80, 80, 80);
     border-radius: 4px;
 }
 
-.score h4 {
+.score h1 {
     margin: 0;
 }
 
+.result {
+    text-align: center;
+    font-size: 4rem;
+}
+
 .attributes {
+    margin-top: 20px;
     padding: 0;
 }
 

@@ -1,9 +1,7 @@
 ﻿using SharpTrooper.Core;
-using SharpTrooper.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace StarWarsTopTrumps.Engine
 {
@@ -13,19 +11,19 @@ namespace StarWarsTopTrumps.Engine
 
         public string Name { get; set; }
 
-        public string CostOfCredits { get; set; }
+        public decimal CostOfCredits { get; set; }
 
-        public string CargoCapacity { get; set; }
+        public decimal CargoCapacity { get; set; }
 
-        public string TopSpeed { get; set; }
+        public decimal TopSpeed { get; set; }
 
-        public string HyperDriveRating { get; set; }
+        public decimal HyperDriveRating { get; set; }
 
-        public string MGLT { get; set; }
+        public decimal MGLT { get; set; }
 
-        public string NumberOfFilms { get; set; }
+        public decimal NumberOfFilms { get; set; }
 
-        public string CrewRequired { get; set; }
+        public decimal CrewRequired { get; set; }
 
         public override List<StarShipCard> PopulateAllCards()
         {
@@ -37,18 +35,18 @@ namespace StarWarsTopTrumps.Engine
 
             for (var i = 1; i <= pages; i++)
             {
-                foreach (var ship in core.GetAllStarships(i.ToString()).results)
+                foreach (var starship in core.GetAllStarships(i.ToString()).results)
                 {
                     var starShipCard = new StarShipCard
                     {
-                        Name = ship.name,
-                        CostOfCredits = ship.cost_in_credits,
-                        CargoCapacity = ship.cargo_capacity,
-                        TopSpeed = ship.max_atmosphering_speed,
-                        HyperDriveRating = ship.hyperdrive_rating,
-                        MGLT = ship.MGLT,
-                        NumberOfFilms = ship.films.Count.ToString(),
-                        CrewRequired = ship.crew
+                        Name = starship.name,
+                        CostOfCredits = HandleValue(starship.cost_in_credits),
+                        CargoCapacity = HandleValue(starship.cargo_capacity),
+                        TopSpeed = HandleValue(starship.max_atmosphering_speed),
+                        HyperDriveRating = HandleValue(starship.hyperdrive_rating),
+                        MGLT = HandleValue(starship.MGLT),
+                        NumberOfFilms = starship.films.Count,
+                        CrewRequired = HandleCrewValue(starship.crew)
                     };
 
                     starShipCards.Add(starShipCard);
@@ -56,6 +54,53 @@ namespace StarWarsTopTrumps.Engine
             }
 
             return starShipCards;
+        }
+
+        private static decimal HandleValue(string value)
+        {
+            if (string.IsNullOrEmpty(value) || value == "unknown" || value == "n/a")
+            {
+                return 0;
+            }
+
+            if (value.Contains("km"))
+            {
+                value = value.Replace("km", "");
+            }
+
+            return Convert.ToDecimal(value);
+        }
+
+        private static decimal HandleCrewValue(string value)
+        {
+            // need to handle a range
+            if (value.Contains("-"))
+                return GetValueFromRange(value);
+
+            return 0;
+        }
+
+        private static int GetValueFromRange(string value, bool returnMax = true)
+        {
+            int max = 0;
+            int min = 0;
+            if (value.Contains('-'))
+            {
+                var range = value.Split('-');
+                List<int> values = new();
+                foreach (var item in range)
+                {
+                    values.Add(int.Parse(item));
+                }
+
+                max = values.Max();
+                min = values.Min();
+            }
+
+            if (returnMax)
+                return max;
+            else
+                return min;
         }
 
         public override void Deal(Player player1, Player player2)
@@ -86,66 +131,6 @@ namespace StarWarsTopTrumps.Engine
         {
             var random = new Random();
             return cards.OrderBy(item => random.Next()).ToList();
-        }
-
-        public HandResult CompareAttributes(string player1Value, string player2Value, StarShipAttributes attribute)
-        {
-            switch (attribute)
-            {
-                case StarShipAttributes.CostOfCredits:
-                case StarShipAttributes.TopSpeed:
-                case StarShipAttributes.NumberOfFilms:
-                case StarShipAttributes.CrewRequired:
-
-                    Regex rx = new (@"\d*\-");
-                    var player1Match = rx.Match(player1Value);
-                    var player2Match = rx.Match(player2Value);
-
-                    if (player1Match.Length > 0)
-                    {
-                        player1Value = player1Value.Replace(player1Match.Value, "");
-                    }
-
-                    if (player2Match.Length > 0)
-                    {
-                        player2Value = player2Value.Replace(player2Match.Value, "");
-                    }
-
-                    player1Value = player1Value.Replace(",", "");
-                    player2Value = player2Value.Replace(",", "");
-
-                    player1Value = player1Value.Replace("unknown", "0");
-                    player2Value = player2Value.Replace("unknown", "0");
-
-                    player1Value = player1Value.Replace("n/a", "0");
-                    player2Value = player2Value.Replace("n/a", "0");
-
-                    player1Value = player1Value.Replace("km", "");
-                    player2Value = player2Value.Replace("km", "");
-
-                    if (Convert.ToInt64(player1Value) == Convert.ToInt64(player2Value))
-                        return HandResult.Draw;
-                    else if (Convert.ToInt64(player1Value) > Convert.ToInt64(player2Value))
-                        return HandResult.Win;
-                    else
-                        return HandResult.Lose;
-
-                case StarShipAttributes.CargoCapacity:
-
-                    player1Value = player1Value.Replace("unknown", "0");
-                    player2Value = player2Value.Replace("unknown", "0");
-
-                    if (Convert.ToDecimal(player1Value) == Convert.ToDecimal(player2Value))
-                        return HandResult.Draw;
-                    else if (Convert.ToDecimal(player1Value) > Convert.ToDecimal(player2Value))
-                        return HandResult.Win;
-                    else
-                        return HandResult.Lose;
-
-                default:
-                    throw new Exception("Invalid attribute");
-            }
-
         }
     }
 }
