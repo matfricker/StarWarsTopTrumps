@@ -3,13 +3,18 @@
     <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Azure.SignalR" Version="1.26.0" />
+    <Compile Remove="Properties\ServiceDependencies\**" />
+    <Content Remove="Properties\ServiceDependencies\**" />
+    <EmbeddedResource Remove="Properties\ServiceDependencies\**" />
+    <None Remove="Properties\ServiceDependencies\**" />
+    <_WebToolingArtifacts Remove="Properties\ServiceDependencies\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Azure.Identity" Version="1.13.0" />
+    <PackageReference Include="Microsoft.Azure.SignalR" Version="1.28.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\StarWarsTopTrumps.Engine\StarWarsTopTrumps.Engine.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\ServiceDependencies\" />
   </ItemGroup>
 </Project>
