@@ -42,18 +42,23 @@ namespace StarWarsTopTrumps.UI.Pages
             switch (Enum.Parse<StarShipAttributes>(attribute))
             {
                 case StarShipAttributes.CostOfCredits:
+                    GameData.SelectedAttribute = "Cost Of Credits";
                     CompareValues(playerOneHand.CostOfCredits, playerTwoHand.CostOfCredits);
                     break;
                 case StarShipAttributes.CargoCapacity:
+                    GameData.SelectedAttribute = "Cargo Capacity";
                     CompareValues(playerOneHand.CargoCapacity, playerTwoHand.CargoCapacity);
                     break;
                 case StarShipAttributes.TopSpeed:
+                    GameData.SelectedAttribute = "Top Speed";
                     CompareValues(playerOneHand.TopSpeed, playerTwoHand.TopSpeed);
                     break;
                 case StarShipAttributes.NumberOfFilms:
+                    GameData.SelectedAttribute = "Number Of Films";
                     CompareValues(playerOneHand.NumberOfFilms, playerTwoHand.NumberOfFilms);
                     break;
                 case StarShipAttributes.CrewRequired:
+                    GameData.SelectedAttribute = "Crew Required";
                     CompareValues(playerOneHand.CrewRequired, playerTwoHand.CrewRequired);
                     break;
             }
