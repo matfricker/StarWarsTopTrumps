@@ -61,6 +61,7 @@ jobs:
         creds: ${{ secrets.FRICKER_SWTT_SPN }}
 
     - name: Deploy to Azure WebApp
+      id: deploy-to-webapp
       uses: azure/webapps-deploy@v2
       with:
         app-name: ${{ env.AZURE_WEBAPP_NAME }}
