@@ -10,13 +10,11 @@
 else
 {
     <div class="container">
-        
         @if (GameData.CardsDealt)
         {
             <div class="row">
                 <div class="column">
                     <div class="column-contents">
-
                         <div class="row">
                             <div class="column">
                                 <div>
@@ -27,30 +25,27 @@ else
                                 <a href="/">Home</a>
                             </div>
                         </div>
-
                         <div class="row">
                             <div class="column">
                                 <div class="score">
                                     <div class="row">
                                         <div class="column" style="text-align: left;">
                                             @GameData.Player1.Name
-                                            <strong>@GameData.Player1.Score</strong>
+                                            <h1 style="margin-bottom: 0;color: #4de129;">@GameData.Player1.Score</h1>
                                         </div>
                                         <div class="column" style="text-align: left;">
                                             <h1 style="text-align: center;">Score</h1>
                                         </div>
                                         <div class="column" style="text-align: right;">
                                             @GameData.Player2.Name
-                                            <strong>@GameData.Player2.Score</strong>
+                                            <h5 style="margin-bottom: 0;color: #ff0000">@GameData.Player2.Score</h5>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                         <div class="row">
                             <div class="column">
-
                                 @if (GameData.Player1.StarShipCardHand.Count > 0)
                                 {
                                     <div class="attributes">
@@ -88,7 +83,6 @@ else
                                         }
                                     </div>
                                 }
-
                             </div>
                         </div>
 
@@ -108,35 +102,24 @@ else
                                 {
                                     <h1 class="result win">@GameData.Hand.Message</h1>
                                 }
-
-                                <div class="row">
-                                    <div class="column" style="text-align: center;">
-                                        @GameData.SelectedAttribute
-                                    </div>
-                                </div>
-
                                 <div class="row">
                                     <div class="column">
-                                        <label>Player:</label>
-                                    </div>
-                                    <div class="column" style="text-align: right;">
-                                        <strong>@GameData.Hand.Player1Value</strong>
+                                        <h4 style="margin-bottom: 0;color: #ffd800">@GameData.SelectedAttribute</h4>
                                     </div>
                                 </div>
-
                                 <div class="row">
                                     <div class="column">
-                                        <label>Computer:</label>
-                                    </div>
-                                    <div class="column" style="text-align: right;">
-                                        <strong>@GameData.Hand.Player2Value</strong>
+                                        <label style="color: #4de129;">P: <strong>@GameData.Hand.Player1Value</strong></label>
                                     </div>
                                 </div>
-
+                                <div class="row">
+                                    <div class="column">
+                                        <label>C: @GameData.Hand.Player2Value</label>
+                                    </div>
+                                </div>
                                 <div style="margin-top: 15px;">
                                     <button @onclick="NextCards">Continue</button>
                                 </div>
-                                
                             }
                         }
                     </div>
