@@ -58,7 +58,7 @@ jobs:
     - name: Azure Login
       uses: azure/login@v2
       with:
-        cred: ${{ secrets.FRICKER_SWTT_SPS }}
+        creds: ${{ secrets.FRICKER_SWTT_SPS }}
 
     - name: Deploy to Azure WebApp
       id: deploy-to-webapp
