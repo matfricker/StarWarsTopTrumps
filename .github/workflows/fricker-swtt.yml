@@ -56,7 +56,7 @@ jobs:
         path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
 
     - name: Azure Login
-      uses: azure/login@v3
+      uses: azure/login@v2
       with:
         cred: ${{ secrets.FRICKER_SWTT_SPS }}
 
