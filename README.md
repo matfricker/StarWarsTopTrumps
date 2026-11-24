@@ -1,10 +1,11 @@
-# Star Wars Top Trumps
+﻿### Login With a Service Principal Secret: FRICKER_SWTT_SPS :
 
-Top Trumps is a card game first published in 1978.
-Each card contains a list of numerical data, and the aim of the game is to compare these values to try to trump and win an opponent's card.
+If secret has expired in Azure application / Entra. Update the secret and update the secret in GitHub repository settings.
+The whole chunk of the secret is a JSON object with the following structure:
 
-Description above is from Wikipedia
-
-## Deployed to Azure Web App
-
-https://fricker-swtt.azurewebsites.net/
+{
+    "clientSecret":  "******",
+    "subscriptionId":  "******",
+    "tenantId":  "******",
+    "clientId":  "******"
+}
