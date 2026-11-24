@@ -58,7 +58,9 @@ jobs:
     - name: Azure Login
       uses: azure/login@v3
       with:
-        creds: ${{ secrets.FRICKER_SWTT_SPN }}
+        client-id: ${{ secrets.FRICKER_SWTT_CLIENT_ID }}
+        tenant-id: ${{ secrets.FRICKER_SWTT_TENANT_ID }}
+        subscription-id: ${{ secrets.FRICKER_SUBSCRIPTION_ID }}
 
     - name: Deploy to Azure WebApp
       id: deploy-to-webapp
